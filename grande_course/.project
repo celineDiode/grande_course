@@ -24,4 +24,10 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>include</name>
+			<value>$%7BPROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>

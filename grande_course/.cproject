@@ -27,13 +27,13 @@
 								</inputType>
 							</tool>
 							<tool id="armus.toolchain.cc.compiler.1472703586" name="ARM-Linux C++ Compiler" superClass="armus.toolchain.cc.compiler">
-								<option id="armus.cc.compiler.includepaths.1294414604" superClass="armus.cc.compiler.includepaths" valueType="includePath">
+								<option id="armus.cc.compiler.includepaths.1294414604" name="Additionnal Include Paths (-I)" superClass="armus.cc.compiler.includepaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:/Users/thor4_000/Documents/test/grande_course/include&quot;"/>
 								</option>
-								<option id="armus.cc.compiler.armuslibs.path.1273813133" superClass="armus.cc.compiler.armuslibs.path" valueType="includePath">
+								<option id="armus.cc.compiler.armuslibs.path.1273813133" name="LibARMus Include Path" superClass="armus.cc.compiler.armuslibs.path" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:/Users/thor4_000/Desktop/ArmusIDE/librairie/include&quot;"/>
 								</option>
-								<option id="armuc.cc.compiler.includes.1513510624" superClass="armuc.cc.compiler.includes" valueType="includePath">
+								<option id="armuc.cc.compiler.includes.1513510624" name="Standard Includes" superClass="armuc.cc.compiler.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;C:/Users/thor4_000/Desktop/ArmusIDE/toolchain/sysroot/usr/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:/Users/thor4_000/Desktop/ArmusIDE/toolchain/sysroot/usr/include/c++/4.2.4/&quot;"/>
 								</option>
@@ -57,4 +57,10 @@
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/grande_course"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
