@@ -2,13 +2,14 @@
 
 #include "mouvements.h"
 #include <math.h>
-
+#define USE_SERVO 1
 
 MOVE_data_t MOVE_data;
 
 
 void MOTEUR_SetSpeed(motor_t motor, short speed)
 {
+#ifdef USE_SERVO
 	//Oui, oui, 45 degres corresponds a une vitesse nulle, c'est la librairie qui suit pas la convention
 	//de controle des servo moteurs
 	if(speed >= -100 || speed <= 100)
@@ -46,6 +47,10 @@ void MOTEUR_SetSpeed(motor_t motor, short speed)
 	{
 		LCD_Printf("ERREUR: MAUVAISE VITESSE MOTEUR");
 	}
+#else
+	MOTOR_SetSpeed(motor, speed);
+#endif
+
 
 }
 
@@ -69,8 +74,8 @@ void move_ticks(short ticks, short ticks_per_second)
 
 	while(1)
 	{
-		MOTOR_SetSpeed(MOTOR_LEFT,  speed_left);
-		MOTOR_SetSpeed(MOTOR_RIGHT, speed_right);
+		MOTEUR_SetSpeed(GAUCHE,  speed_left);
+		MOTEUR_SetSpeed(DROIT, speed_right);
 
 		short progression_left = 0;
 		short progression_right = 0;
@@ -90,8 +95,8 @@ void move_ticks(short ticks, short ticks_per_second)
 
 			if(ticks_left >= ticks || ticks_right >= ticks)
 			{
-				MOTOR_SetSpeed(MOTOR_LEFT, 	0);
-				MOTOR_SetSpeed(MOTOR_RIGHT, 0);
+				MOTEUR_SetSpeed(GAUCHE, 	0);
+				MOTEUR_SetSpeed(DROIT, 0);
 
 				//LCD_Printf("%d : %d-%d | ",ticks , ticks_left, ticks_right);
 
@@ -119,8 +124,8 @@ void turn_ticks(short ticks, short speed)
 	ENCODER_Read(ENCODER_LEFT);
 	ENCODER_Read(ENCODER_RIGHT);
 
-	MOTOR_SetSpeed(MOTOR_LEFT,  speed);
-	MOTOR_SetSpeed(MOTOR_RIGHT, -speed);
+	MOTEUR_SetSpeed(GAUCHE,  speed);
+	MOTEUR_SetSpeed(DROIT, -speed);
 
 	do
 	{
@@ -130,17 +135,17 @@ void turn_ticks(short ticks, short speed)
 		ticks_right += ENCODER_Read(ENCODER_RIGHT);
 
 		if(ticks_left >= ticks) {
-			MOTOR_SetSpeed(MOTOR_LEFT, 0);
+			MOTEUR_SetSpeed(GAUCHE, 0);
 		}
 
 		if(ticks_right >= ticks) {
-			MOTOR_SetSpeed(MOTOR_RIGHT, 0);
+			MOTEUR_SetSpeed(DROIT, 0);
 		}
 
 	} while(ticks_left < ticks || ticks_right < ticks);
 
-	MOTOR_SetSpeed(MOTOR_LEFT, 	0);
-	MOTOR_SetSpeed(MOTOR_RIGHT, 0);
+	MOTEUR_SetSpeed(GAUCHE, 	0);
+	MOTEUR_SetSpeed(DROIT, 0);
 
 	//LCD_Printf("%d : %d-%d\n",ticks , ticks_left, ticks_right);
 }
