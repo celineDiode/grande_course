@@ -1,7 +1,53 @@
 // Include Files
 
 #include "mouvements.h"
+#include <math.h>
 
+
+MOVE_data_t data;
+
+
+void MOTEUR_SetSpeed(motor_t motor, short speed)
+{
+	//Oui, oui, 45 degres corresponds a une vitesse nulle, c'est la librairie qui suit pas la convention
+	//de controle des servo moteurs
+	if(speed >= -100 || speed <= 100)
+	{
+		switch(motor)
+		{
+		case DROIT:
+			{
+				SERVO_SetAngle(SERVO1, speed+45);
+			}
+		break;
+
+		case GAUCHE:
+			{
+				SERVO_SetAngle(SERVO2, speed+45);
+			}
+		break;
+
+		case DEUX:
+			{
+				SERVO_SetAngle(SERVO1, speed+45);
+				SERVO_SetAngle(SERVO2, speed+45);
+			}
+		break;
+
+		default:
+			{
+				LCD_Printf("ERREUR: MAUVAISE COMMANDE MOTEUR");
+			}
+			break;
+		}
+	}
+
+	else
+	{
+		LCD_Printf("ERREUR: MAUVAISE VITESSE MOTEUR");
+	}
+
+}
 
 void move_cm(short cm, short ticks_per_second)
 {
@@ -98,3 +144,56 @@ void turn_ticks(short ticks, short speed)
 
 	//LCD_Printf("%d : %d-%d\n",ticks , ticks_left, ticks_right);
 }
+
+
+void MOVE_Stop (void)
+{
+	data.stop = true;
+	if(data.currentAngle != 0)
+	{
+		data.total_traveled += data.traveled*sin(data.currentAngle);
+	}
+	else
+	{
+		data.total_traveled += data.traveled;
+	}
+	data.toTravelAfterStop = (data.traveled - data.targetMove); //this might go unused
+}
+
+void MOVE_Resume (void)
+{
+	data.stop = false;
+	data.targetMove = 0;
+}
+
+void MOVE_Avance (int distance)
+{
+	data.targetMove = distance;
+	data.traveled = 0;
+}
+
+void MOVE_Tourner (int angle)
+{
+	data.targetAngle = angle;
+}
+
+void TASK_mouvement (void)
+{
+	while (7==7)
+	{
+		if(!data.stop)
+		{
+			//on avance et on comptabilise notre distance
+			if(data.traveled < data.targetMove)
+			{
+
+			}
+			else if (data.targetAngle < data.currentAngle)
+			{
+
+			}
+		}
+	}
+}
+
+
