@@ -9,16 +9,7 @@
 
 // Include Files
 
-#include "libarmus.h"
-#include "stdint.h"
-#include "mouvements.h"
-#include "contourne_obstacle.h"
-#include "sensors.h"
-#include "state_machine.h"
-
-// Global Functions
-void* test (void* a);
-void tata (void);
+#include "main.h"
 
 int main()
 {
@@ -43,26 +34,3 @@ int main()
 	return 0;
 }
 
-void tata (void)
-{
-	LCD_ClearAndPrint("");
-		while (1)
-		{
-			LCD_Printf("toto");
-
-			THREAD_MSleep(500);
-		}
-
-}
-
-void* test (void* a)
-{
-	LCD_ClearAndPrint("");
-	while (1)
-	{
-		LCD_Printf("test");
-
-		THREAD_MSleep(500);
-	}
-	return NULL;
-}
