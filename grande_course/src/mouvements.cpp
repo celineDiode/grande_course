@@ -19,6 +19,7 @@ void MOTEUR_SetSpeed(motor_t motor, short speed)
 		case DROIT:
 			{
 				SERVO_SetAngle(SERVO1, speed+45);
+				//lol
 			}
 		break;
 
