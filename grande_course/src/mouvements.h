@@ -12,15 +12,17 @@
 
 
 typedef struct{
-	int traveled =0;
-	int targetMove =0;
-	int total_traveled =0;
-	int targetAngle =0;
-	int currentAngle =0;
-	bool stop =false;
-	int toTravelAfterStop =0;
-	int horizontalTravel =0;
+	int traveled ;
+	int targetMove ;
+	int total_traveled ;
+	int targetAngle ;
+	int currentAngle ;
+	bool stop ;
+	int toTravelAfterStop ;
+	int horizontalTravel ;
 }MOVE_data_t;
+
+extern MOVE_data_t MOVE_data;
 
 const short PAUSE = 500;
 const short TIMEOUT = 25;//50;
@@ -42,7 +44,7 @@ void turn_degrees(short degrees, short speed);
 
 void turn_ticks(short ticks, short speed);
 
-void TASK_mouvement (void);
+void* TASK_mouvement (void* a);
 
 void MOVE_Stop (void);
 void MOVE_Resume (void);

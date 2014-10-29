@@ -6,51 +6,7 @@
  */
 
 #include <libarmus.h>
-
-int frequenceAcquisition=1000;
-int IDcouleurRouge=1;
-int IDcouleurVert=2;
-int IDcouleurBleu=3;
-int IDligneGauche=4;
-int IDligneCentre=5;
-int IDligneDroite=6;
-int IDdistanceIR=4;
-int IDdetecteur5kHz=8;
-
-int IDpowerCouleur=9;
-int IDpowerDistanceIR=10;
-int IDpowerDetecteur5khz=16;
-
-typedef struct{
-	bool gauche;
-	bool centre;
-	bool droite;
-}Ligne;
-typedef struct {
-	int rouge;
-	int vert;
-	int bleu;
-}Couleur;
-
-typedef struct{
-	int distance1;
-}Distance;
-
-typedef struct{
-	bool avant;
-	bool arriere;
-	bool gauche;
-	bool droit;
-}Bumper;
-
-
-typedef struct{
-	Ligne ligne;
-	Couleur couleur;
-	Bumper bumper;
-	Distance distance;
-}Capteur;
-
+#include "sensors.h"
 
 Capteur capteur;
 
@@ -95,13 +51,24 @@ void attendreSignalDepart(){
 	}
 	DIGITALIO_Write(IDpowerDetecteur5khz,0);
 }
-void lireCapteurs(){
-	while(1){
-	getCouleurs();
-	//getLignes();
-	getDistanceGP2D12cm();
-	THREAD_MSleep(frequenceAcquisition);
+void* lireCapteurs(void* a __attribute__((unused))){
+	int count =0;
+	LCD_Printf("Sensors : PRET\n");
+	while(1)
+	{
+		if(count>=10)
+		{
+			getCouleurs();
+			//getLignes();
+			getDistanceGP2D12cm();
+			count=0;
+		}
+		capteur.encodeurs.droit = ENCODER_Read(ENCODER_RIGHT);
+		capteur.encodeurs.gauche = ENCODER_Read(ENCODER_LEFT);
+		count++;
+		THREAD_MSleep(frequenceAcquisition/10);
 	}
+	return NULL;
 }
 
 void fermerCapteurs(){

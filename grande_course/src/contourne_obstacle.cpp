@@ -4,9 +4,10 @@
  *  Created on: 2014-10-28
  *      Author: thor4_000
  */
-#include "sensors.cpp"
-#include "Math.cpp"
+#include "sensors.h"
+#include "Math.h"
 #include "mouvements.h"
+#include "contourne_obstacle.h"
 
 float distanceCritique=15.0;
 float variationMouvement=3.5;

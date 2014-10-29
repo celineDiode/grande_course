@@ -4,7 +4,7 @@
 #include <math.h>
 
 
-MOVE_data_t data;
+MOVE_data_t MOVE_data;
 
 
 void MOTEUR_SetSpeed(motor_t motor, short speed)
@@ -148,52 +148,55 @@ void turn_ticks(short ticks, short speed)
 
 void MOVE_Stop (void)
 {
-	data.stop = true;
-	if(data.currentAngle != 0)
+	MOVE_data.stop = true;
+	if(MOVE_data.currentAngle != 0)
 	{
-		data.total_traveled += data.traveled*sin(data.currentAngle);
+		MOVE_data.total_traveled += MOVE_data.traveled*sin(MOVE_data.currentAngle);
 	}
 	else
 	{
-		data.total_traveled += data.traveled;
+		MOVE_data.total_traveled += MOVE_data.traveled;
 	}
-	data.toTravelAfterStop = (data.traveled - data.targetMove); //this might go unused
+	MOVE_data.toTravelAfterStop = (MOVE_data.traveled - MOVE_data.targetMove); //this might go unused
 }
 
 void MOVE_Resume (void)
 {
-	data.stop = false;
-	data.targetMove = 0;
+	MOVE_data.stop = false;
+	MOVE_data.targetMove = 0;
 }
 
 void MOVE_Avance (int distance)
 {
-	data.targetMove = distance;
-	data.traveled = 0;
+	MOVE_data.targetMove = distance;
+	MOVE_data.traveled = 0;
 }
 
 void MOVE_Tourner (int angle)
 {
-	data.targetAngle = angle;
+	MOVE_data.targetAngle = angle;
 }
 
-void TASK_mouvement (void)
+void* TASK_mouvement (void* a __attribute__((unused)))
 {
+	LCD_Printf("Mouvements : PRET\n");
 	while (7==7)
 	{
-		if(!data.stop)
+		if(!MOVE_data.stop)
 		{
 			//on avance et on comptabilise notre distance
-			if(data.traveled < data.targetMove)
+			if(MOVE_data.traveled < MOVE_data.targetMove)
 			{
 
 			}
-			else if (data.targetAngle < data.currentAngle)
+			else if (MOVE_data.targetAngle < MOVE_data.currentAngle)
 			{
 
 			}
 		}
+		THREAD_MSleep(50);
 	}
+	return NULL;
 }
 
 
