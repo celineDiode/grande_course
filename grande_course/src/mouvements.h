@@ -5,6 +5,7 @@
  *      Author: thor4_000
  */
 
+#include "sensors.h"
 #include <libarmus.h>
 
 #ifndef MOUVEMENTS_H_
@@ -20,17 +21,24 @@ typedef struct{
 	bool stop ;
 	int toTravelAfterStop ;
 	int horizontalTravel ;
+
+	int speed_left;
+	int distance_left;
+	int speed_right;
+	int distance_right;
+	int speed_move;
+	int speed_rotate;
+	int ticks_per_second_wanted;
 }MOVE_data_t;
 
-extern MOVE_data_t MOVE_data;
+const short TIMEOUT = 500;
 
-const short PAUSE = 500;
-const short TIMEOUT = 25;//50;
-const short SUBDIVISIONS = 20;//10;
 const short TICK_PER_ROTATION = 64;
 const short CM_PER_ROTATION = 24;
 const float PI = 3.1415926535897932384626;
 const float CM_BETWEEN = 13.8;//14.0;
+
+extern MOVE_data_t MOVE_data;
 
 enum motor_t{GAUCHE, DROIT, DEUX};
 

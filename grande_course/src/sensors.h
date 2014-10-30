@@ -57,7 +57,7 @@ typedef struct{
 	Encodeurs encodeurs;
 }Capteur;
 
-extern Capteur capteur;;
+extern Capteur capteur;
 
 void getCouleurs(void);
 void getLignes();

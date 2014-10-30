@@ -56,17 +56,17 @@ void* lireCapteurs(void* a __attribute__((unused))){
 	LCD_Printf("Sensors : PRET\n");
 	while(1)
 	{
-		if(count>=10)
+		if(count>=125)
 		{
 			getCouleurs();
 			//getLignes();
 			getDistanceGP2D12cm();
 			count=0;
 		}
-		capteur.encodeurs.droit = ENCODER_Read(ENCODER_RIGHT);
-		capteur.encodeurs.gauche = ENCODER_Read(ENCODER_LEFT);
+		capteur.encodeurs.droit += ENCODER_Read(ENCODER_RIGHT);
+		capteur.encodeurs.gauche += ENCODER_Read(ENCODER_LEFT);
 		count++;
-		THREAD_MSleep(frequenceAcquisition/10);
+		THREAD_MSleep(frequenceAcquisition/125);
 	}
 	return NULL;
 }

@@ -28,11 +28,10 @@ int main()
 	{
 		ENCODER_Read(ENCODER_LEFT);
 		ENCODER_Read(ENCODER_RIGHT);
-		LCD_ClearAndPrint("R:%i  G:%i  B:%i\n",capteur.couleur.rouge,capteur.couleur.vert,capteur.couleur.bleu);
-		LCD_Printf("Distance CM: %d",capteur.distance.distance1);
+		//LCD_ClearAndPrint("R:%i  G:%i  B:%i\n",capteur.couleur.rouge,capteur.couleur.vert,capteur.couleur.bleu);
+		//LCD_Printf("Distance CM: %d", capteur.distance.distance1);
 		THREAD_MSleep(50);
 	}
 
 	return 0;
 }
-
